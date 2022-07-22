@@ -1,0 +1,18 @@
+version: '3.7'
+
+services:
+  viotrd-10106-nuget-server:
+    image: loicsharma/baget:0.4.0-preview2
+    container_name: baget
+    restart: always
+    environment:
+      - Database__ConnectionString=Data Source=/var/baget/baget.db
+      - Storage__Type=FileSystem
+      - Storage__Path=/var/baget/packages
+      - Database__Type=Sqlite
+      - Search__Type=Database
+    volumes:
+      - ./baget-data:/var/baget
+      - ./temp-key:/root/.aspnet/DataProtection-Keys
+    ports:
+      - 5555:80
